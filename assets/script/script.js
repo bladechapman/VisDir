@@ -113,8 +113,8 @@ function update() {
 	node.append('circle')
 			.attr('r', function(d) {
 				if(d.parent == "") {
-					d.x = w/2;
-					d.y = h/2;
+					// d.x = w/2;
+					// d.y = h/2;
 					// d.fixed = true;
 					d.r = 2 * circleWidth;
 				}
@@ -245,7 +245,6 @@ $('#file_input').change(function(e) {
 })
 
 $('#reset').click(function() {
-	console.log("clicked");
 	initialize(fileData);
 })
 
