@@ -1,5 +1,5 @@
-var		w = 700,
-		h = 700;
+var		w = 500//$(window).width(),
+		h = 500//$(window).height();
 
 var circleWidth = 5;
 
@@ -30,21 +30,30 @@ var force = d3.layout.force()
     .size([w, h])
     .on("tick", tick);
 
-var svg = d3.select('#chart')
+var svgOuter = d3.select('#chart')
 			.append('svg')
 			.attr('width', w)
 			.attr('height', h)
+			.attr('class', 'chart')
+			.call(d3.behavior.zoom().on('zoom', rescale))
 
-var tooltip = svg.append('text')
-				.attr({
-					x: 50,
-					y: 50,
-				})
+var svg = svgOuter.append('g')
+				.attr('id', 'chartGroup')
+
+var tooltip = d3.select('#info')
+					.style('height', '30px')
+					.style('width', '50%')
+					.style('margin', '0 auto')
+				// .append('svg')
+				// .attr('width', w)
+				// .attr('height', 30)
 
 var nodes = [], links = []
 var node = svg.selectAll('circle'),
 	link = svg.selectAll('line')
 var selected_node = null;
+var dragging = false;
+var fileData = {};
 
 function reset() {
 	nodes = [];
@@ -79,10 +88,6 @@ function initialize(input) {
 }
 
 function update() {
-	force
-		.nodes(nodes)
-		.links(links)
-		.start();
 
 	link.remove();
 	link = svg.selectAll('line')
@@ -94,15 +99,26 @@ function update() {
 	node = svg.selectAll('circle')
 			.data(nodes)
 			.enter().append('g')
-			.on("mouseover", hover)
-			.on("mouseout", clear)
-			.on("click", click)
-			.call(force.drag)
+				.on("mouseover", hover)
+				.on("mouseout", clear)
+				.on("mousedown", function(d) {
+					dragging = true;
+				})
+				.on("mouseup", function(d) {
+					dragging = false;
+				})
+				.on("click", click)
+				// .call(force.drag)
 
 	node.append('circle')
 			.attr('r', function(d) {
-				if(d.parent == "") d.r = 2 * circleWidth
-				else return d.r = circleWidth;
+				if(d.parent == "") {
+					d.x = w/2;
+					d.y = h/2;
+					// d.fixed = true;
+					d.r = 2 * circleWidth;
+				}
+				else d.r = circleWidth;
 				return d.r
 			})
 			.attr('fill', function(d) {
@@ -121,6 +137,12 @@ function update() {
 			.style('stroke', function(d) {
 				return d.col;
 			})
+
+
+	force
+		.nodes(nodes)
+		.links(links)
+		.start();
 }
 
 function tick() {
@@ -128,6 +150,7 @@ function tick() {
 		.attr('transform', function(d, i) {
 			return 'translate(' + d.x + ', ' + d.y + ')';
 		})
+
 
 	link
 		.attr('x1', function(d) {return d.source.x; })
@@ -165,15 +188,7 @@ function findNode(nodeName, nodes) {
 	return null;
 }
 
-$('#file_input').change(function(e) {
-	var fileList = [];
-	var fileData = {};
-	for(var i = 0; i < e.target.files.length; i++)
-		fileList.push(e.target.files[i].webkitRelativePath)
 
-	fileData = flatten(buildFromPathList(fileList))
-	initialize(fileData)
-})
 
 function buildFromPathList(paths) {
 	var tree = {};
@@ -208,4 +223,35 @@ function recurse(parentPath, data, ret) {
 		}
 	}
 }
+
+function rescale() {
+	// if(dragging) {console.log("dragging"); return};
+	var trans = d3.event.translate;
+	var scale = d3.event.scale;
+
+	svg.attr("transform",
+			"translate(" + trans + ")"
+			+ " scale(" + scale + ")");
+}
+
+$('#file_input').change(function(e) {
+	var fileList = [];
+	fileData = {};
+	for(var i = 0; i < e.target.files.length; i++)
+		fileList.push(e.target.files[i].webkitRelativePath)
+
+	fileData = flatten(buildFromPathList(fileList))
+	initialize(fileData)
+})
+
+$('#reset').click(function() {
+	console.log("clicked");
+	initialize(fileData);
+})
+
+$('#clear').click(function() {
+	reset();
+	update();
+})
+
 
