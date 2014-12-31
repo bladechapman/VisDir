@@ -27,7 +27,8 @@ var palette = {
   };
 
 var force = d3.layout.force()
-    .charge(-50)
+    .charge(-100)
+    .gravity(0.2)
     .linkDistance(15)
     .size([w, h])
     .on("tick", tick);

@@ -51,7 +51,7 @@ hr {
 
 #info {
 	height : 30px;
- 	width : 50%;
+ 	width : 100%;
  	margin-top: 10px;
 }
 
@@ -70,6 +70,21 @@ h1, h2, h3, h4, h5, h6 {
   /*color: #CB4B19;*/
   font-size: 1.75em;
   margin-bottom: .4em;
+}
+
+.footer, .push {
+	margin-top: 50px;
+	height: 4em;
+	font-size: 0.5em;
+}
+
+
+a:link {
+	color: #475B62;
+}
+
+a:visited {
+	color: #475B62;
 }
 
 
