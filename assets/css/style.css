@@ -1,14 +1,75 @@
-.container {
-	width: 80%;
-	max-width: 1200px;
-	margin: 0 auto;
-	margin-top: 10px;
+hr {
+	width: 600px;
 }
 
-.chart {
+#instr {
+/*	border-style: solid;
+	border-color: #475B62;*/
+	padding-left: 10px;
+	width: 150px;
+    margin: 0 auto;
+
+      font-size: 0.8em;
+
+}
+
+#controls {
+	width: 100px;
+}
+
+.control {
+	margin-top: 15px;
+}
+
+.fileUpload {
+	position: relative;
+	overflow: hidden;
+}
+.fileUpload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+#chart {
+	width: 500px;
+	height: 500px;
 	border-style: solid;
-	border-color: #475B62
+	border-color: #475B62;
+}
+#files {
+	height : 30px;
+ 	width : 50%;
+ 	margin-top: 10px;
 }
 
+#info {
+	height : 30px;
+ 	width : 50%;
+ 	margin-top: 10px;
+}
+
+body {
+  font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  background: #FDF6E3;
+  color: #475B62;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 700;
+  /*color: #CB4B19;*/
+  font-size: 1.75em;
+  margin-bottom: .4em;
+}
 
 

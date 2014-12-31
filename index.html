@@ -2,19 +2,52 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Blade Chapman</title>
+	<title>VisDir</title>
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/buttons.css">
+
 </head>
+<center>
+<h3>
+	VisDir
+</h3>
+a directory visualizer
+</center>
+<hr>
+
 <body>
-	<input type="file" id="file_input" webkitdirectory="" directory="">
-	<button type="button" id="reset">reset simulation</button>
-	<button type="button" id="clear">clear simulation</button>
-	<div class="container">
+
+	<div id="instr">
+		<center>Controls:</center>
+		<li>drag to pan</li>
+		<li>scroll to zoom</li>
+		<li>click node to select</li>
+	</div>
+
+	<center>
+	<div id="controls">
+		<button class="control fileUpload btn btn-primary pure-button">
+		upload
+		    <input class="upload" type="file" id="file_input" webkitdirectory="" directory="" />
+		</button>
+
+		<button class="control pure-button" type="button" id="reset">reset simulation</button>
+		<button class="control pure-button" type="button" id="clear">clear simulation</button>
+	</div>
+	</center>
+
+	<hr>
+
+	<center>
+	<div id="container">
+		<div id="files">no file</div>
 		<div id="info"></div>
 		<div id="chart"></div>
 	</div>
+	</center>
 	<script src="assets/script/jquery.min.js"></script>
 	<script src="assets/script/d3.min.js"></script>
+	<script src="assets/script/directory.js"></script>
 	<script src="assets/script/script.js"></script>
 </body>
 </html>
